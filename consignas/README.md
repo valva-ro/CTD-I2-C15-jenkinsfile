@@ -71,7 +71,17 @@
 
 ## En nuestro repositorio de git
 
-1. Modificamos el Jenkinsfile que teníamos de la parte 3 y le reemplazamos lo que teníamos en `post { }` por:
+1. Modificamos el Jenkinsfile que teníamos de la parte 3, reemplazamos lo que teníamos en `stage('Test')`
+    ```bash
+        stage('Test') {
+            steps {
+                dir ('maven-adderapp') {
+                    sh 'mvn test'
+                }
+            }
+        }
+    ```
+2. Reemplazamos lo que teníamos en `post { }` por:
     ```bash
         always {
             dir ('maven-adderapp') {
