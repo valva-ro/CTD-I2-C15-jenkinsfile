@@ -33,7 +33,6 @@ pipeline {
         }
         success {
             dir ('maven-adderapp') {
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 script {
                     pom = readMavenPom file: "pom.xml";
                     files = findFiles(glob: "target/*.${pom.packaging}");
@@ -45,7 +44,7 @@ pipeline {
                         groupId: pom.groupId,
                         version: pom.version,
                         repository: "maven-jenkins",
-                        credentialsId: "nexus",
+                        credentialsId: "credentialsId",
                         artifacts: [
                             [
                                 artifactId: pom.artifactId,
