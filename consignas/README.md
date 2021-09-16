@@ -55,7 +55,8 @@
     nexus |
     nexus | Started Sonatype Nexus OSS 3.33.1-01
     nexus |
-    nexus | -------------------------------------------------
+    nexus | 
+    -------------------------------------------------
     ```
     Y ahí ya podríamos abrir Nexus en el navegador
 
@@ -72,38 +73,38 @@
 
 1. Modificamos el Jenkinsfile que teníamos de la parte 3 y le reemplazamos lo que teníamos en `post { }` por:
     ```bash
-    success {
-    dir ('maven-adderapp') {
-        script {
-            pom = readMavenPom file: "pom.xml";
-            files = findFiles(glob: "target/*.${pom.packaging}");
-            filePath = files[0].path;
-            nexusArtifactUploader (
-                nexusVersion: "3.33.1-01",
-                protocol: "http",
-                nexusUrl: "${env.NEXUS}:8081",
-                groupId: pom.groupId,
-                version: pom.version,
-                repository: "maven-jenkins",
-                credentialsId: "nexus",
-                artifacts: [
-                    [
-                        artifactId: pom.artifactId,
-                        classifier: '',
-                        file: filePath,
-                        type: pom.packaging
-                    ],
-                    [
-                        artifactId: pom.artifactId,
-                        classifier: '',
-                        file: "pom.xml",
-                        type: "pom"
-                    ]
-                ]
-            );
+        success {
+            dir ('maven-adderapp') {
+                script {
+                    pom = readMavenPom file: "pom.xml";
+                    files = findFiles(glob: "target/*.${pom.packaging}");
+                    filePath = files[0].path;
+                    nexusArtifactUploader (
+                        nexusVersion: "3.33.1-01",
+                        protocol: "http",
+                        nexusUrl: "${env.NEXUS}:8081",
+                        groupId: pom.groupId,
+                        version: pom.version,
+                        repository: "maven-jenkins",
+                        credentialsId: "nexus",
+                        artifacts: [
+                            [
+                                artifactId: pom.artifactId,
+                                classifier: '',
+                                file: filePath,
+                                type: pom.packaging
+                            ],
+                            [
+                                artifactId: pom.artifactId,
+                                classifier: '',
+                                file: "pom.xml",
+                                type: "pom"
+                            ]
+                        ]
+                    );
+                }
             }
         }
-    }
     ```
     Debería quedarnos como [este](https://github.com/valva-ro/CTD-I2-C15-jenkinsfile/blob/main/Jenkinsfile).
 
