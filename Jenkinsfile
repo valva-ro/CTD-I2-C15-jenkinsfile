@@ -28,7 +28,7 @@ pipeline {
     post {
         always {
             dir ('maven-adderapp') {
-                junit 'target/surfire-reports/*.xml'
+                junit allowEmptyResults: true, testResults: 'target/surfire-reports/*.xml'
             }
         }
         success {
