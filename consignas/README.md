@@ -73,8 +73,14 @@
 
 1. Modificamos el Jenkinsfile que teníamos de la parte 3 y le reemplazamos lo que teníamos en `post { }` por:
     ```bash
+        always {
+            dir ('maven-adderapp') {
+                junit 'target/surfire-reports/*.xml'
+            }
+        }
         success {
             dir ('maven-adderapp') {
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 script {
                     pom = readMavenPom file: "pom.xml";
                     files = findFiles(glob: "target/*.${pom.packaging}");
