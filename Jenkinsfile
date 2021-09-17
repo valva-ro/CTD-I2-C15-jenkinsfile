@@ -40,10 +40,10 @@ pipeline {
                     nexusArtifactUploader (
                         nexusVersion: "3.33.1-01",
                         protocol: "http",
-                        nexusUrl: "${env.NEXUS}:8081",
+                        nexusUrl: "${env.NEXUS}:8081/repository/maven-dh/",
                         groupId: pom.groupId,
                         version: pom.version,
-                        repository: "maven-jenkins",
+                        repository: "maven-dh",
                         credentialsId: "credentialsId",
                         artifacts: [
                             [
